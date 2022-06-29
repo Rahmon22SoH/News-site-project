@@ -1,7 +1,10 @@
 from flask import Flask, render_template
+from flask_login import login_manager
+
 from webapp.weather import weather_by_city
-from webapp.model import db, News
+from webapp.model import db, News, User
 from webapp.forms import LoginForm
+
 
 def create_app():
     app = Flask(__name__)
@@ -20,6 +23,5 @@ def create_app():
         title = 'Авторизация'
         login_form = LoginForm()
         return render_template('login.html', page_title=title, form=login_form)
-
 
     return app
