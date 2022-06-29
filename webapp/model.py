@@ -15,6 +15,7 @@ class News(db.Model):
     def __repr__(self):
         return '<News {} {}>'.format(self.title, self.url)
 
+
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, nullable=True)
@@ -23,11 +24,9 @@ class User(db.Model, UserMixin):
 
     def set_password(self, password):
         self.password = generate_password_hash(password)
-        return  check_password_hash((self.password, password))
 
     def check_password(self, password):
-        return
-
+        return  check_password_hash((self.password, password))
 
     def __repr__(self):
         return '<User {} >'.format(self.username)
