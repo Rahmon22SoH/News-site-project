@@ -26,7 +26,11 @@ class User(db.Model, UserMixin):
         self.password = generate_password_hash(password)
 
     def check_password(self, password):
+<<<<<<< HEAD
         return check_password_hash(self.password, password)
+=======
+        return  check_password_hash((self.password, password))
+>>>>>>> 98e414fd93215529cb5c8e5f6e0be32df4181513
 
     def __repr__(self):
         return '<User {} >'.format(self.username)

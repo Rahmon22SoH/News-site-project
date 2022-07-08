@@ -1,9 +1,17 @@
+<<<<<<< HEAD
 from flask import Flask, render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user
 
+=======
+from flask import Flask, render_template
+from flask_login import login_manager
+
+from webapp.weather import weather_by_city
+>>>>>>> 98e414fd93215529cb5c8e5f6e0be32df4181513
 from webapp.model import db, News, User
 from webapp.forms import LoginForm
 from webapp.weather import weather_by_city
+
 
 
 def create_app():
@@ -32,6 +40,7 @@ def create_app():
         login_form = LoginForm()
         return render_template('login.html', page_title=title, form=login_form)
 
+<<<<<<< HEAD
     @app.route('/process-login', methods=['POST'])
     def process_login():
         form = LoginForm()
@@ -50,5 +59,7 @@ def create_app():
         flash('Вы успешно разлогинились')
         return redirect(url_for('index'))
 
+=======
+>>>>>>> 98e414fd93215529cb5c8e5f6e0be32df4181513
     return app
 
