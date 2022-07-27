@@ -7,6 +7,7 @@ app = create_app()
 
 with app.app_context():
     username = input('Введите имя:')
+
     if User.query.filter(User.username == username).count():
         print("Пользователь с таким именем уже есть")
         sys.exit(0)
