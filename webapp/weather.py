@@ -1,5 +1,5 @@
-from flask import current_app
 import requests
+from flask import current_app
 
 
 def weather_by_city(city_name):
@@ -21,11 +21,13 @@ def weather_by_city(city_name):
                     return weather['data']['current_condition'][0]
                 except(IndexError, TypeError):
                     return False
-    except(requests.RequestException):
+    except requests.RequestException:
         print('Сетевая ошибка')
         return False
     return False
 
 
-if __name__ == "__main__":
+if __name__ != '__main__':
+    pass
+else:
     print(weather_by_city("Sochi, Russia"))

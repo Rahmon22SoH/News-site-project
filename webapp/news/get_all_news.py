@@ -1,4 +1,4 @@
-from webapp.python_org_news import get_python_news
+from webapp.news.python_org_news import get_python_news
 from webapp import create_app
 
 app = create_app()
