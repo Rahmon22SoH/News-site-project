@@ -41,3 +41,4 @@ Werkzeug==2.1.2
 WTForms==3.0.1
 zipp==3.8.0
 Flask-Login==0.6.2
+flask-migrate==0.3.8
