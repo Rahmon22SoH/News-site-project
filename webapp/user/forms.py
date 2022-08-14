@@ -35,7 +35,7 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    username = StringField('Имя пользователя', validators=[DataRequired(), Length(max=64)], render_kw={"class": "form-control"})
+    username = StringField('Имя пользователя', validators=[DataRequired(), Length(min=5, max=64, message='Длина имени должна быть между %(mind и %(max) символов ')],render_kw={"class": "form-control"})
     email = StringField('Электронная почта', validators=[DataRequired(), Email()], render_kw={"class": "form-control"})
     password = PasswordField('Пароль', validators=[DataRequired()], render_kw={"class": "form-control"})
     password2 = PasswordField('Повторите пароль', validators=[DataRequired(), EqualTo('password')], render_kw={"class": "form-control"})
@@ -43,15 +43,13 @@ class RegistrationForm(FlaskForm):
 
     def validate_username(self, username):
         user_count = User.query.filter_by(username=username.data).count()
-        excluded_chars = "*?!'^+%&amp;/()=}][{$#"
+        excluded_chars = "*?!'^+%&;/()=}][{$#"
         for char in self.username.data:
             if char in excluded_chars:
                 raise ValidationError(
                     f"Символ {char} не допускается в имени пользователя.")
             if user_count > 0:
                 raise ValidationError('Пользователь с таким именем уже зарегестрирован')
-            # if username > 64:
-            #     return ValidationError('The username must contain no more than %(max 64)d characters.')
 
     def validate_email(self, email):
         user_count = User.query.filter_by(email=email.data).count()
@@ -69,7 +67,5 @@ class RegistrationForm(FlaskForm):
 
         return _length
 
-# class GreetUserForm(FlaskForm):
-#     username = StringField(label=('Enter Your Name:'),validators=[DataRequired(), Length(min=5, max=64, message='Name length must be between %(min)d and %(max)dcharacters') ])
-#     submit = SubmitField(label=('Submit'))
+
 
