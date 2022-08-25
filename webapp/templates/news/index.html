@@ -1,32 +1,38 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="row">
-        <div class="col-8">
-            {% with messages = get_flashed_messages() %}
-                {% if messages %}
-                <div class="alert alert-warning" role="alert">
-                    {% for message in messages %}
-                        {{ message }}<br>
-                    {% endfor %}
+
+            <div class="grid-posts">
+            <div class="container">
+                {% include('messages.html') %}
+            <div class="row">
+                {% for news in news_list %}
+                <div class="col-md-4">
+                 <div class="card-header">
+                     <div class="card text-white bg-dark mb-3" style="max-width: 20rem;">
+                            <div class="card-body">
+                            <h5 class="post-title">{{ news.title|safe }}</h5>
+                            <p class="card-text">{{ news.published|safe }}</p>
+                            <a href="{{ url_for('news.single_news', news_id=news.id) }}" class="btn btn-primary">Подробнее</a>
+                            <!--            <h3><a href="{{ url_for('news.single_news', news_id=news.id) }}">{{ news.title }}</a></h3>-->
+                            <p> {{ news.published.strftime('%d.%m.%Y') }} | Комментарии: {{ news.comments_count()
+                                }} </p>
+                        </div>
+                    </div>
                 </div>
-                {% endif %}
-            {% endwith %}
-            <h2>Новости</h2>
-            {% for news in news_list %}
-            <h3><a href="{{ url_for('news.single_news', news_id=news.id) }}">{{ news.title }}</a></h3>
-            <p> {{ news.published.strftime('%d.%m.%Y') }}</p>
-            <hr/>
-            {% endfor %}
-            </h2>
-        </div>
-        <div class="col-4">
-            <h2>Прогноз погоды</h2>
-            {% if weather %}
-            {{ weather.temp_C }}, Ощущается как {{ weather.FeelsLikeC }}
-            {% else %}
-            Сервис погоды временно не доступен
-            {% endif %}
+                </div>
+                <hr/>
+                {% endfor %}
+                </h2>
+            </div>
+<!--            <div class="col-4">-->
+<!--                <h2>Прогноз погоды</h2>-->
+<!--                {% if weather %}-->
+<!--                {{ weather.temp_C }}, Ощущается как {{ weather.FeelsLikeC }}-->
+<!--                {% else %}-->
+<!--                Сервис погоды временно не доступен-->
+<!--                {% endif %}-->
+<!--            </div>-->
         </div>
     </div>
-{% endblock%}
+        {% endblock%}
