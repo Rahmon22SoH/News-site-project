@@ -1,0 +1,18 @@
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+            {{ message }}
+        </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+{% if current_user.is_authenticated %}
+    <form action="{{ url_for('news.add_comment') }}" method="POST">
+        ...
+    </form>
+{% else %}
+    <p><a href="{{ url_for('user.login') }}">Авторизуйтесь</a>,
+            чтобы комментировать</p>
+{% endif %}

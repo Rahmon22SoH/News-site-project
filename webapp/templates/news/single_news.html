@@ -2,11 +2,43 @@
 
 {% block content %}
 <div class="row">
-        <div class="col-8 news-content">
-            {{ news.text|safe }}
+    <div class="col align-self-center news-content">
+
+        {{ news.text|safe }}
+        {% if news.comments %}
+        <h3>Комментарии:</h3>
+        {% for comment in news.comments %}
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text">{{ comment.text }}</p>
+                <p class="card-text">
+                    <small>Опубликовано: {{ comment.created.strftime('%d.%m.%Y') }} |
+                        Автор: {{ comment.user.username }}</small>
+                </p>
+            </div>
         </div>
-        <div class="col-4">
-            <h2>Другие новости</h2>
+        {% endfor %}
+{% endif %}
+
+            {% if current_user.is_authenticated %}
+
+        <form action="{{ url_for('news.add_comment') }}" method="POST">
+            {{ comment_form.hidden_tag() }}
+            <div class="form-group">
+                {{ comment_form.comment_text.label }}
+                {{ comment_form.comment_text() }}
+            </div>
+            {{ comment_form.submit() }}
+        </form>
+        {% else %}
+
+        <div class="alert alert-primary" role="alert">
+        <p>
+                <a href="{{ url_for('user.login', next=request.full_path) }}"> Авторизируйтесь </a> чтобы писать комментарий
+        </p>
+        </div>
         </div>
     </div>
+{% endif %}
+
 {% endblock%}
